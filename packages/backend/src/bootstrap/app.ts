@@ -3,7 +3,7 @@ import Koa from 'koa';
 import koaBody from 'koa-body';
 import mount from 'koa-mount';
 import serve from 'koa-static';
-import { LOGGER, TNullable } from '@demo/app-common';
+import { TNullable } from '@demo/app-common';
 import { AppInterceptor } from './app-interceptor';
 import * as appTracer from './app-request-tracer';
 import v1Route from '../application/workflows/v1-route';

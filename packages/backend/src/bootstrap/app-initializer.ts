@@ -7,6 +7,8 @@ import {
 	commonInjectorCodes,
 	ICustomHttpClient,
 	CustomHttpClient,
+	ICustomRedisClient,
+	CustomRedisClient,
 } from '@demo/app-common';
 import { InjectorCodes } from '../domain/enums/injector-codes';
 import { AbstractSocketHandler } from '../application/workflows/abstract-socket-handler';
@@ -39,6 +41,22 @@ export class AppInitializer {
 			.toConstantValue(client)
 			.whenTargetNamed(commonInjectorCodes.DEFAULT_MONGO_CLIENT);
 
+	}
+
+	static async tryRedis(): Promise<void> {
+		const redisClient = new CustomRedisClient();
+		if (defConf.ENABLE_CACHE) {
+			await redisClient.tryConnect({
+				host: defConf.DEFAULT_REDIS.HOST,
+				port: defConf.DEFAULT_REDIS.PORT,
+				password: defConf.DEFAULT_REDIS.PASS,
+				db: defConf.DEFAULT_REDIS.DB_NAME,
+			});
+		}
+		defaultContainer
+			.bind<ICustomRedisClient>(commonInjectorCodes.I_REDIS_CLIENT)
+			.toConstantValue(redisClient)
+			.whenTargetNamed(commonInjectorCodes.DEFAULT_REDIS_CLIENT);
 	}
 
 	static tryInjector(): void {

@@ -1,4 +1,5 @@
 import { Model, Schema, Document } from 'mongoose';
+import { Redis } from 'ioredis';
 import { CustomHttpOption } from '../custom-models/custom-http-option';
 import { CustomResult } from '../custom-models/custom-result';
 

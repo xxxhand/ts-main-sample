@@ -51,6 +51,7 @@
     "@types/koa__router": "^8.0.4",
     "@types/socket.io": "^2.1.13",
     "p-event": "^4.2.0",
-    "socket.io-client": "^4.0.1"
+    "socket.io-client": "^4.0.1",
+    "typescript": "^4.2.4"
   }
 }
