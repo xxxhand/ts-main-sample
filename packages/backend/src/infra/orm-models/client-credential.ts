@@ -13,30 +13,30 @@ interface IDocumentModel {
 export interface IClientCredentialDocument extends IDocumentModel, Document { };
 
 export const clientCredentialSchema = new Schema({
-  clientId: {
-    type: String,
-    trim: true,
-    required: true,
-  },
-  clientSecret: {
-    type: String,
-    trim: true,
-    required: true,
-  },
-  callbackUrl: {
-    type: String,
-    trim: true,
-    required: true,
-  },
-  name: {
-    type: String,
-    trim: true,
-    required: true,
-  },
+	clientId: {
+		type: String,
+		trim: true,
+		required: true,
+	},
+	clientSecret: {
+		type: String,
+		trim: true,
+		required: true,
+	},
+	callbackUrl: {
+		type: String,
+		trim: true,
+		required: true,
+	},
+	name: {
+		type: String,
+		trim: true,
+		required: true,
+	},
 }, {
-  versionKey: false,
-  timestamps: true,
-  collection: `${clientCredentialModelName}s`,
+	versionKey: false,
+	timestamps: true,
+	collection: `${clientCredentialModelName}s`,
 });
 
 clientCredentialSchema.index({ clientId: 1 }, { unique: true });

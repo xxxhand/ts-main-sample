@@ -2,13 +2,13 @@ import { ParameterizedContext, Next } from 'koa';
 import Router from '@koa/router';
 import { injectable } from 'inversify';
 import {
-    CustomClassBuilder,
-    CustomResult,
-    defaultContainer,
-    lazyInject,
-    TNullable,
-    CustomUtils,
-    LOGGER,
+	CustomClassBuilder,
+	CustomResult,
+	defaultContainer,
+	lazyInject,
+	TNullable,
+	CustomUtils,
+	LOGGER,
 } from '@demo/app-common';
 import { IStateResult } from '../../domain/types';
 import { InjectorCodes } from '../../domain/enums/injector-codes';
@@ -24,23 +24,23 @@ export class ClientAuthRoute {
 
     public create = async (ctx: ParameterizedContext<IStateResult>, next: Next): Promise<void> => {
 
-        const mReq = CustomClassBuilder.build(RegisterClientRequest, ctx.request.body)?.checkRequired();
-        LOGGER.info(`Create new client for ${mReq?.name}`);
-        const entity = <ClientEntity>CustomClassBuilder.build(ClientEntity, mReq);
-        entity.clientId = CustomUtils.generateUniqueId();
-        entity.clientSecret = CustomUtils.generateUniqueId();
-        await this._repo?.save(entity);
+    	const mReq = CustomClassBuilder.build(RegisterClientRequest, ctx.request.body)?.checkRequired();
+    	LOGGER.info(`Create new client for ${mReq?.name}`);
+    	const entity = <ClientEntity>CustomClassBuilder.build(ClientEntity, mReq);
+    	entity.clientId = CustomUtils.generateUniqueId();
+    	entity.clientSecret = CustomUtils.generateUniqueId();
+    	await this._repo?.save(entity);
 
-        ctx.state.result = new CustomResult().withResult(entity);
-        await next();
+    	ctx.state.result = new CustomResult().withResult(entity);
+    	await next();
     }
 
     public static build(): Router {
-        defaultContainer.bind(ClientAuthRoute).toSelf().inSingletonScope();
-        const _ctrl = defaultContainer.get(ClientAuthRoute);
-        return new Router()
-            .prefix('/client-auth')
-            .post('/', _ctrl.create);
+    	defaultContainer.bind(ClientAuthRoute).toSelf().inSingletonScope();
+    	const _ctrl = defaultContainer.get(ClientAuthRoute);
+    	return new Router()
+    		.prefix('/client-auth')
+    		.post('/', _ctrl.create);
     }
 }
 

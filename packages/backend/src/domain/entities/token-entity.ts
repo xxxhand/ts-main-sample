@@ -4,6 +4,6 @@ export class  TokenEntity {
     public expiredAt: number = -1;
 
     hasExpired(): boolean {
-        return this.expiredAt < Date.now();
+    	return this.expiredAt < Date.now();
     }
 }

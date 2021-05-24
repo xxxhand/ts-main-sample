@@ -12,12 +12,12 @@ export { getId as getTraceId, defaultNameSpace } from './custom-tools/custom-req
 export { CustomUtils } from './custom-tools/custom-utils';
 export { validateStrategy, CustomValidator } from './custom-tools/custom-validator';
 export {
-  TNullable,
-  ICodeObject,
-  IConfig,
-  IMongooseClient,
-  IBaseRequest,
-  ICustomHttpClient,
+	TNullable,
+	ICodeObject,
+	IConfig,
+	IMongooseClient,
+	IBaseRequest,
+	ICustomHttpClient,
 } from './custom-types';
 export { defaultContainer, lazyInject, lazyInjectNamed } from './shared/default-container';
 export { CustomMongooseClient } from './custom-tools/custom-mongoose-client';

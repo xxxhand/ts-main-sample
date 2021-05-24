@@ -8,11 +8,11 @@ export abstract class AbstractSocketHandler {
     public path: string = '';
 
     constructor(namespace = '') {
-        this.path = `/wss/v1/${namespace}`;
+    	this.path = `/wss/v1/${namespace}`;
     }
 
     makeError(err: any): ICodeObject {
-        return CustomError.getCode(err.type);
+    	return CustomError.getCode(err.type);
     }
 
     abstract onConnection(socket: Socket): void;

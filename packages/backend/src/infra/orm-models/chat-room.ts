@@ -14,23 +14,23 @@ interface IDocumentModel {
 export interface IChatRoomDocument extends IDocumentModel, Document { };
 
 export const chatRoomSchema = new Schema({
-  status: {
-    type: Number,
-    default: RoomStatusCodes.OPEN,
-    enum: [RoomStatusCodes.OPEN, RoomStatusCodes.CLOSE, RoomStatusCodes.OFF],
-  },
-  hostId: {
-    type: Schema.Types.ObjectId,
-    required: true,
-  },
-  openedAt: {
-    type: Date,
-  },
-  closedAt: {
-    type: Date,
-  },
+	status: {
+		type: Number,
+		default: RoomStatusCodes.OPEN,
+		enum: [RoomStatusCodes.OPEN, RoomStatusCodes.CLOSE, RoomStatusCodes.OFF],
+	},
+	hostId: {
+		type: Schema.Types.ObjectId,
+		required: true,
+	},
+	openedAt: {
+		type: Date,
+	},
+	closedAt: {
+		type: Date,
+	},
 }, {
-  versionKey: false,
-  timestamps: true,
-  collection: `${chatRoomModelName}s`,
+	versionKey: false,
+	timestamps: true,
+	collection: `${chatRoomModelName}s`,
 });

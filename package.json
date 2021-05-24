@@ -8,6 +8,7 @@
     "prestart:local": "npm run build",
     "start:local": "node ./packages/backend/build/bin/www.js --env development --configpath ../../../../configs",
     "lint": "node ./node_modules/eslint/bin/eslint.js packages --ext=.ts,.js,.jsx",
+    "lint:fix": "eslint --fix . --ext .ts",
     "clean": "npx lerna run --parallel clean",
     "clean:mod": "npx lerna run --parallel clean:mod && npx rimraf ./node_modules yarn.lock",
     "build": "npm run clean && npm run build:all",

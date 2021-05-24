@@ -8,14 +8,14 @@ export class RegisterClientRequest implements IBaseRequest<RegisterClientRequest
     public callbackUrl: string = '';
 
     checkRequired(): RegisterClientRequest {
-        new CustomValidator()
-            .nonEmptyStringThrows(this.name, ErrorCodes.CLIENT_NAME_INVALID)
-            .checkThrows(this.callbackUrl,
-                { s: validateStrategy.NON_EMPTY_STRING, m: ErrorCodes.CLIENT_CALLBACK_INVALID },
-                { m: ErrorCodes.CLIENT_CALLBACK_INVALID, fn: (val: string) => _DEF_PROTOCAL.test(val) }
-            );
+    	new CustomValidator()
+    		.nonEmptyStringThrows(this.name, ErrorCodes.CLIENT_NAME_INVALID)
+    		.checkThrows(this.callbackUrl,
+    			{ s: validateStrategy.NON_EMPTY_STRING, m: ErrorCodes.CLIENT_CALLBACK_INVALID },
+    			{ m: ErrorCodes.CLIENT_CALLBACK_INVALID, fn: (val: string) => _DEF_PROTOCAL.test(val) }
+    		);
 
-        return this;
+    	return this;
     }
 
 }

@@ -6,7 +6,7 @@ const defaultContainer = new Container({ defaultScope: 'Singleton' });
 const { lazyInject, lazyInjectNamed }  = getDecorators(defaultContainer);
 
 export {
-  defaultContainer,
-  lazyInject,
-  lazyInjectNamed,
+	defaultContainer,
+	lazyInject,
+	lazyInjectNamed,
 };

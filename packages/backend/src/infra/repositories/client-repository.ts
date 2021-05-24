@@ -1,16 +1,16 @@
 import { injectable, inject, named } from 'inversify';
 import {
-  LOGGER,
-  TNullable,
-  CustomValidator,
-  IMongooseClient,
-  commonInjectorCodes,
-  CustomClassBuilder,
-  ErrorCodes,
-  CustomError,
-  ICustomHttpClient,
-  CustomHttpOption,
-  defaultContainer,
+	LOGGER,
+	TNullable,
+	CustomValidator,
+	IMongooseClient,
+	commonInjectorCodes,
+	CustomClassBuilder,
+	ErrorCodes,
+	CustomError,
+	ICustomHttpClient,
+	CustomHttpOption,
+	defaultContainer,
 } from '@demo/app-common';
 import { ClientEntity } from '../..//domain/entities/client-entity';
 import { ModelCodes } from '../../domain/enums/model-codes';
@@ -24,65 +24,65 @@ export class ClientRepository implements IClientRepository {
   constructor(
     @inject(commonInjectorCodes.I_MONGOOSE_CLIENT) @named(commonInjectorCodes.DEFAULT_MONGO_CLIENT) defaultClient: IMongooseClient
   ) {
-    this._defaultClient = defaultClient;
+  	this._defaultClient = defaultClient;
   }
   checkIdentity = async (userId: string, entity: TNullable<ClientEntity>): Promise<boolean> => {
-    if (!CustomValidator.nonEmptyString(userId) || !entity) {
-      return false;
-    }
-    const httpClient = defaultContainer.get<ICustomHttpClient>(commonInjectorCodes.I_HTTP_CLIENT);
-    const opt = new CustomHttpOption()
-      .setUrl(entity.callbackUrl)
-      .setTimeout(3)
-      .addParameter('clientId', userId);
+  	if (!CustomValidator.nonEmptyString(userId) || !entity) {
+  		return false;
+  	}
+  	const httpClient = defaultContainer.get<ICustomHttpClient>(commonInjectorCodes.I_HTTP_CLIENT);
+  	const opt = new CustomHttpOption()
+  		.setUrl(entity.callbackUrl)
+  		.setTimeout(3)
+  		.addParameter('clientId', userId);
 
-    LOGGER.info(`Call ${opt.uri} to validate identity`);
-    const res = await httpClient.tryGet(opt);
-    LOGGER.info(JSON.stringify(res));
-    return res.isOK();
+  	LOGGER.info(`Call ${opt.uri} to validate identity`);
+  	const res = await httpClient.tryGet(opt);
+  	LOGGER.info(JSON.stringify(res));
+  	return res.isOK();
   }
 
   public findOne = async (clientId: string): Promise<TNullable<ClientEntity>> => {
-    if (!CustomValidator.nonEmptyString(clientId)) {
-      return undefined;
-    }
-    try {
-      const col = this._defaultClient.getModel<IClientCredentialDocument>(ModelCodes.CLINET_CREDENTIAL);
-      const q = {
-        clientId,
-      };
-      const doc: IClientCredentialDocument = await col.findOne(q).lean();
-      return this._transform(doc);
-    } catch (ex) {
-      LOGGER.error(`DB operations fail, ${ex.stack}`);
-      throw new CustomError(ErrorCodes.ERR_EXEC_DB_FAIL);
-    }
+  	if (!CustomValidator.nonEmptyString(clientId)) {
+  		return undefined;
+  	}
+  	try {
+  		const col = this._defaultClient.getModel<IClientCredentialDocument>(ModelCodes.CLINET_CREDENTIAL);
+  		const q = {
+  			clientId,
+  		};
+  		const doc: IClientCredentialDocument = await col.findOne(q).lean();
+  		return this._transform(doc);
+  	} catch (ex) {
+  		LOGGER.error(`DB operations fail, ${ex.stack}`);
+  		throw new CustomError(ErrorCodes.ERR_EXEC_DB_FAIL);
+  	}
 
   }
   public save = async (entity: TNullable<ClientEntity>): Promise<TNullable<ClientEntity>> => {
-    if (!entity) {
-      return undefined;
-    }
-    try {
-      const col = this._defaultClient.getModel<IClientCredentialDocument>(ModelCodes.CLINET_CREDENTIAL);
-      const obj = <IClientCredentialDocument>{
-        clientId: entity.clientId,
-        clientSecret: entity.clientSecret,
-        name: entity.name,
-        callbackUrl: entity.callbackUrl,
-      };
-      await col.create(obj);
-      return entity;
-    } catch (ex) {
-      LOGGER.error(`DB operations fail, ${ex.stack}`);
-      throw new CustomError(ErrorCodes.ERR_EXEC_DB_FAIL);
-    }
+  	if (!entity) {
+  		return undefined;
+  	}
+  	try {
+  		const col = this._defaultClient.getModel<IClientCredentialDocument>(ModelCodes.CLINET_CREDENTIAL);
+  		const obj = <IClientCredentialDocument>{
+  			clientId: entity.clientId,
+  			clientSecret: entity.clientSecret,
+  			name: entity.name,
+  			callbackUrl: entity.callbackUrl,
+  		};
+  		await col.create(obj);
+  		return entity;
+  	} catch (ex) {
+  		LOGGER.error(`DB operations fail, ${ex.stack}`);
+  		throw new CustomError(ErrorCodes.ERR_EXEC_DB_FAIL);
+  	}
   }
 
   private _transform = (doc: TNullable<IClientCredentialDocument>): TNullable<ClientEntity> => {
-    if (!doc) {
-      return undefined;
-    }
-    return CustomClassBuilder.build(ClientEntity, doc);
+  	if (!doc) {
+  		return undefined;
+  	}
+  	return CustomClassBuilder.build(ClientEntity, doc);
   }
 }

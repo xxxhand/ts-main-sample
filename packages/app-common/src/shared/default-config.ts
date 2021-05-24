@@ -9,24 +9,24 @@ LOGGER.info(`Run on environment ${customArgvs.env}`);
 LOGGER.info('Load config start...');
 let _configPath: TNullable<string> = customArgvs.configpath;
 if (!CustomValidator.nonEmptyString(_configPath)) {
-  LOGGER.info('Input argv is empty, load from default...');
-  _configPath = `./configs`;
+	LOGGER.info('Input argv is empty, load from default...');
+	_configPath = `./configs`;
 }
 // if (_configPath.startsWith('.') || _configPath.startsWith('..')) {
 //   throw new Error(`Path must be absolutely`);
 // }
-_configPath = path.resolve(require.main?.path || '', `${_configPath}/config.${customArgvs.env}.json`);
+_configPath = path.resolve(require.main?.path || __dirname, `${_configPath}/config.${customArgvs.env}.json`);
 if (!fs.existsSync(_configPath)) {
-  throw new Error(`File not exist with path ${_configPath}`);
+	throw new Error(`File not exist with path ${_configPath}`);
 }
 
 let _config: IConfig;
 try {
-  const data = fs.readFileSync(_configPath);
-  _config = <IConfig>JSON.parse(data.toString('utf-8'));
+	const data = fs.readFileSync(_configPath);
+	_config = <IConfig>JSON.parse(data.toString('utf-8'));
 } catch (ex) {
-  LOGGER.error(ex.stack);
-  throw ex;
+	LOGGER.error(ex.stack);
+	throw ex;
 }
 
 export const defaultConfig = _config;

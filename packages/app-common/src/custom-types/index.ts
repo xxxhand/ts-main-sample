@@ -12,13 +12,21 @@ export interface ICodeObject {
 export type TNullable<T> = T | undefined | null;
 
 export interface IConfig {
+	ENABLE_CACHE: boolean,
 	DEFAULT_MONGO: {
 		URI: string;
 		USER?: string;
 		PASS?: string;
 		POOL_SIZE: number;
 		DB_NAME: string;
-	}
+	},
+	DEFAULT_REDIS: {
+		URI: string;
+		HOST: string,
+		PORT: number,
+		PASS?: string;
+		DB_NAME: number;
+  }
 }
 
 export interface IBaseRequest<T> {
@@ -39,4 +47,10 @@ export interface ICustomHttpClient {
 	tryPostJson(option: TNullable<CustomHttpOption>): Promise<CustomResult>;
 	tryPostForm(option: TNullable<CustomHttpOption>): Promise<CustomResult>;
 	tryGet(option: TNullable<CustomHttpOption>): Promise<CustomResult>;
+}
+
+export interface ICustomRedisClient {
+	open(): Redis;
+	close(): void;
+	isConnected(): boolean;
 }

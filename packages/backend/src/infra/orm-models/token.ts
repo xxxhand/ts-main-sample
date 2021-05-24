@@ -12,23 +12,23 @@ interface IDocumentModel {
 export interface ITokenDocument extends IDocumentModel, Document { };
 
 export const tokenSchema = new Schema({
-  token: {
-    type: String,
-    trim: true,
-    required: true,
-  },
-  clientId: {
-    type: String,
-    trim: true,
-    required: true,
-  },
-  expiredAt: {
-    type: Number,
-  },
+	token: {
+		type: String,
+		trim: true,
+		required: true,
+	},
+	clientId: {
+		type: String,
+		trim: true,
+		required: true,
+	},
+	expiredAt: {
+		type: Number,
+	},
 }, {
-  versionKey: false,
-  timestamps: true,
-  collection: `${tokenModelName}s`,
+	versionKey: false,
+	timestamps: true,
+	collection: `${tokenModelName}s`,
 });
 
 tokenSchema.index({ token: 1 }, { unique: true });

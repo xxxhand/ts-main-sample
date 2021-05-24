@@ -9,6 +9,6 @@ export class ChatRoomEntity {
     public closedAt: TNullable<Date> = null;
 
     isOpened(): boolean {
-        return this.status === RoomStatusCodes.OPEN;
+    	return this.status === RoomStatusCodes.OPEN;
     }
 }
