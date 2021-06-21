@@ -62,18 +62,18 @@ try {
 		_config.DEFAULT_REDIS.URI = <string>process.env.X_DEF_REDIS_URI;
 	}
 	if (CustomValidator.nonEmptyString(process.env.X_DEF_REDIS_HOST)) {
-		_config.DEFAULT_REDIS.HOST = <string>process.env.X_DEF_MONGO_HOST;
+		_config.DEFAULT_REDIS.HOST = <string>process.env.X_DEF_REDIS_HOST;
 	}
 	if (CustomValidator.nonEmptyString(process.env.X_DEF_REDIS_PASS)) {
 		_config.DEFAULT_REDIS.PASS = process.env.X_DEF_REDIS_PASS;
 	}
-	if (CustomValidator.nonEmptyString(process.env.X_DEF_REDIS_PASS)) {
+	if (CustomValidator.nonEmptyString(process.env.X_DEF_REDIS_PORT)) {
 		_config.DEFAULT_REDIS.PORT = Number.parseInt(<string>process.env.X_DEF_REDIS_PORT, 10);
 	}
 	if (CustomValidator.nonEmptyString(process.env.X_DEF_REDIS_DB_NAME)) {
 		_config.DEFAULT_REDIS.DB_NAME = Number.parseInt(<string>process.env.X_DEF_REDIS_DB_NAME, 10);
 	}
-		
+
 } catch (ex) {
 	LOGGER.error(ex.stack);
 	throw ex;
