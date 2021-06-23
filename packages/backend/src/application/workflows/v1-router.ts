@@ -1,7 +1,7 @@
 import { ParameterizedContext, Next } from 'koa';
 import Router from '@koa/router';
 import { CustomResult } from '@demo/app-common';
-import { ClientAuthRoute } from './client-auth-route';
+import { ClientAuthController } from './client-auth-controller';
 import { IStateResult } from '../../domain/types';
 
 const _router = new Router()
@@ -14,6 +14,6 @@ _router
 	});
 
 _router
-	.use(ClientAuthRoute.build().routes());
+	.use(ClientAuthController.build().routes());
 
 export default _router;
