@@ -6,7 +6,7 @@ import serve from 'koa-static';
 import { TNullable } from '@demo/app-common';
 import { AppInterceptor } from './app-interceptor';
 import * as appTracer from './app-request-tracer';
-import v1Route from '../application/workflows/v1-route';
+import v1Router from '../application/workflows/v1-router';
 
 const _PUBLIC_PATH = '../../../../public';
 
@@ -29,7 +29,7 @@ export class App {
   	this._app?.use(appTracer.forKoa());
   	this._app?.use(AppInterceptor.beforeHandler);
   	this._app?.use(AppInterceptor.errorHandler);
-  	this._app?.use(v1Route.routes());
+  	this._app?.use(v1Router.routes());
   	this._app?.use(AppInterceptor.completeHandler);
   	this._app?.use(AppInterceptor.notFoundHandler);
   }
