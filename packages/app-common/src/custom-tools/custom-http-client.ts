@@ -35,10 +35,9 @@ export class CustomHttpClient implements ICustomHttpClient {
 
 			return result;
 		} catch (ex) {
-			const err = CustomError.fromInstance(ex);
-			const code = CustomError.getCode(cmmErr.ERR_EXEC_HTTP_ERROR);
+			const err = CustomError.fromInstance(ex).useError(cmmErr.ERR_EXEC_HTTP_ERROR);
 			return new CustomResult()
-				.withCode(code.code)
+				.withCode(err.code)
 				.withMessage(err.message);
 		}
 	}
@@ -72,10 +71,9 @@ export class CustomHttpClient implements ICustomHttpClient {
 
 			return result;
 		} catch (ex) {
-			const err = CustomError.fromInstance(ex);
-			const code = CustomError.getCode(cmmErr.ERR_EXEC_HTTP_ERROR);
+			const err = CustomError.fromInstance(ex).useError(cmmErr.ERR_EXEC_HTTP_ERROR);
 			return new CustomResult()
-				.withCode(code.code)
+				.withCode(err.code)
 				.withMessage(err.message);
 		}
 	}
