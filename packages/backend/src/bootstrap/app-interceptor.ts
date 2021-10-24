@@ -19,13 +19,9 @@ export class AppInterceptor {
 		try {
 			await next();
 		} catch (ex) {
-			let error: CustomError = ex;
-			if (!(ex instanceof CustomError)) {
-				LOGGER.error(ex.stack);
-				error = new CustomError('', ex.message);
-			}
+			const error = CustomError.fromInstance(ex);
 			const str = `${ctx.method} ${ctx.originalUrl} - ${error.httpStatus} [${error.type}] ${error.message}`;
-			if (error?.isException()) {
+			if (error.isException()) {
 				LOGGER.error(str);
 			} else {
 				LOGGER.warn(str);
