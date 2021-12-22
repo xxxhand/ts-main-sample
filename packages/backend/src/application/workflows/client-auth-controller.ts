@@ -4,7 +4,6 @@ import { injectable } from 'inversify';
 import {
 	CustomClassBuilder,
 	CustomResult,
-	defaultContainer,
 	lazyInject,
 	TNullable,
 	CustomUtils,
@@ -36,8 +35,7 @@ export class ClientAuthController {
     }
 
     public static build(): Router {
-    	defaultContainer.bind(ClientAuthController).toSelf().inSingletonScope();
-    	const _ctrl = defaultContainer.get(ClientAuthController);
+    	const _ctrl = new ClientAuthController();
     	return new Router()
     		.prefix('/client-auth')
     		.post('/', _ctrl.create);
