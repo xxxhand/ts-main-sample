@@ -29,7 +29,7 @@ export class CustomClassBuilder {
 			return undefined;
 		}
 		let obj = new clazz();
-		for (const key of Object.keys(obj)) {
+		for (const key of Object.keys(obj as object)) {
 			let prop = getJsonProperty<T>(obj, key);
 			if (!prop) {
 				if (source[key] !== void 0) {

@@ -8,6 +8,7 @@ import { AppInitializer } from './app-initializer';
 import { AppInterceptor } from './app-interceptor';
 import * as appTracer from './app-request-tracer';
 import v1Router from '../application/workflows/v1-router';
+import authRouter from '../application/workflows/auth-router';
 
 const _PUBLIC_PATH = '../../../../public';
 
@@ -37,6 +38,7 @@ export class App {
 		this._app?.use(AppInterceptor.beforeHandler);
 		this._app?.use(AppInterceptor.errorHandler);
 		this._app?.use(v1Router.routes());
+		this._app?.use(authRouter.routes())
 		this._app?.use(AppInterceptor.completeHandler);
 		this._app?.use(AppInterceptor.notFoundHandler);
 	}

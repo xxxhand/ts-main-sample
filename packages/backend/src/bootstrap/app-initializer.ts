@@ -20,6 +20,9 @@ import { IChatRoomRepository } from '../domain/repositories/i-chat-room-reposito
 import { ChatRoomRepository } from '../infra/repositories/chat-room-repository';
 import { ITokenRepository } from '../domain/repositories/i-token-repository';
 import { TokenRepository } from '../infra/repositories/token-repository';
+import { IUserRepository } from '../domain/repositories/i-user-repository';
+import { UserRepository } from '../infra/repositories/user-repository';
+
 
 export class AppInitializer {
 
@@ -74,6 +77,8 @@ export class AppInitializer {
 			.bind<IChatRoomRepository>(InjectorCodes.I_CHAT_ROOM_REPO).to(ChatRoomRepository).inSingletonScope();
 		defaultContainer
 			.bind<ITokenRepository>(InjectorCodes.I_TOKEN_REPO).to(TokenRepository).inSingletonScope();
+		defaultContainer
+			.bind<IUserRepository>(InjectorCodes.I_USER_REPO).to(UserRepository).inSingletonScope();
 
 		/** socket handlers */
 		defaultContainer

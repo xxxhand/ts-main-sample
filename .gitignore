@@ -12,3 +12,4 @@ logs
 */logs
 .DS_Store
 *debug*
+.vscode
